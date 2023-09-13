@@ -1,7 +1,7 @@
 import math
 from datetime import datetime, timedelta
 
-def get_6_months_date(GLOBAL_SP):
+def get_6_months_date():
     current_date = datetime.utcnow()
     six_months_ago = current_date - timedelta(days=6 * 30)
     return six_months_ago.strftime('%Y-%m-%dT%H:%M:%SZ')
@@ -17,7 +17,7 @@ def cosine_similarity(list_a, list_b):
     similarity = dot_product / (magnitude_a * magnitude_b)
     return similarity
 
-def get_average(tracks: list, GLOBAL_SP):
+def get_average(tracks: list, sp):
     """
     Given a list of tracks, returns a list of length 4,
     describing the average danceability, energy, valence,
@@ -27,7 +27,7 @@ def get_average(tracks: list, GLOBAL_SP):
 
     for track in tracks:
         track_id = track['track']['id']
-        audio_features = GLOBAL_SP.audio_features([track_id])[0]
+        audio_features = sp.audio_features([track_id])[0]
 
         features[0] += audio_features['danceability']/len(tracks)
         features[1] += audio_features['energy']/len(tracks)
